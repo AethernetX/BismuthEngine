@@ -3,16 +3,20 @@ set(MINGW_PATH "C:/msys64/ucrt64/")
 
 cmake_minimum_required(VERSION 3.10)
 
-project(core VERSION 0.0.1)
+project(Application VERSION 0.0.1)
 
-#set the include
-set(INCLUDES ${WORKING_DIRECTORY}/include/Core)
+# set the core directory
+set(CORE "${WORKING_DIRECTORY}../core")
+
+# set include dir
+set(CORE_INCLUDE_DIR "${CORE}/include")
+set(CORE_INCLUDE_LIB "${CORE}/bin")
 
 include_directories(external)
 
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -22,8 +26,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${MINGW_PATH}/include)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
  ${PROJECT_SOURCE_DIR}/src
- ${INCLUDES}
+ ${CORE_INCLUDE_DIR}
 )
 
-# searches for a include directory
-# target_include_directories(hello PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_directories(${PROJECT_NAME} PUBLIC
+ ${CORE_INCLUDE_LIB}
+)
+
+target_link_libraries(${PROJECT_NAME} libcore)
