@@ -1,4 +1,4 @@
-#include "Core/core.h"
+#include <Bismuth.h>
 
 class Sandbox : public bi::Application
 {

@@ -17,15 +17,15 @@ project "Bismuth"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    files { 
-        "%{prj.name}/src/**.hpp",
-        "%{prj.name}/src/**.cpp" 
+    files {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
     } 
 
     -- Includes will go here
-    --includedirs {
-        --""    
-    --}
+    includedirs {
+        "thirdparty/spdlog/include"    
+    }
 
     postbuildcommands {
         ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
@@ -51,13 +51,14 @@ project "Sandbox"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     files { 
-        "%{prj.name}/src/**.hpp",
+        "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp" 
     } 
 
     -- Includes will go here
     includedirs {
-        "Bismuth/include",    
+        "thirdparty/spdlog/include",
+        "Bismuth",    
     }
 
     links {

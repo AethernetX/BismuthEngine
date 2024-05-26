@@ -4,8 +4,6 @@ namespace bi {
 
     class Application
     {
-    private:
-        /* data */
     public:
         Application(/* args */);
         virtual ~Application();

@@ -1,5 +1,4 @@
 #include "Application.h"
-#include <iostream>
 
 namespace bi {
      
@@ -12,7 +11,6 @@ namespace bi {
     }
     
     void Application::run(){
-        std::cout << "Running\n";
         while(true){
 
         }
