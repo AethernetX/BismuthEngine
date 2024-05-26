@@ -1,9 +1,12 @@
 #include <Core/core.h>
+#include <iostream>
 
 int main(){
-    print("hello??");
+    print("It works!");
     
-    while(true){}
+    print("Type ctrl + C to quit");
 
-    return 0;
+    std::cout << add(420, 69) << "\n";
+    
+    while(true) {} 
 }

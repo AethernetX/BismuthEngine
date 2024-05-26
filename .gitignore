@@ -1,6 +1,17 @@
-core/bin
-Sandbox/bin
+# Binaries
+bin
+bin-int
+
+# Makefiles (for Mingw)
+Makefile
+Bismuth/Makefile
+Sandbox/Makefile
+
+# VS stuff will go here
 
 features.md
+
+# for the time being have this hidden
+build.bat
 
 .vscode
