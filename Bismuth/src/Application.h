@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Core.h"
+
 namespace bi {
 
-    class Application
+    class BISMUTH_API Application
     {
     public:
         Application(/* args */);

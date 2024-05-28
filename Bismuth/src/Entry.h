@@ -2,7 +2,7 @@
 
 //Maybe set up different entry points for each platform?
 
-// #ifdef platform
+#ifdef BI_PLATFORM_WINDOWS
 
 extern bi::Application* bi::CreateApplication();
 
@@ -18,4 +18,4 @@ int main(int argc, char** argv)
 	delete app;
 }
 
-// #endif
+#endif

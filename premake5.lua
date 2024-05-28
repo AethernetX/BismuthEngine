@@ -27,18 +27,23 @@ project "Bismuth"
         "thirdparty/spdlog/include"    
     }
 
-    defines {
-		"BI_PLATFORM_WINDOWS",
-		"BI_BUILD_DLL"
-	}
+    filter "system:windows"
+	       cppdialect "C++17"
+		    staticruntime "On"
+		    systemversion "latest"
 
-    prebuildcommands {
-        ("{MKDIR} ../bin/" .. outputdir .. "/Sandbox")
-	}
+        defines {
+		    "BI_PLATFORM_WINDOWS",
+		    "BI_BUILD_DLL"
+	    }
 
-    postbuildcommands {
-        ("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-	}
+        prebuildcommands {
+            ("{MKDIR} ../bin/" .. outputdir .. "/Sandbox")
+	    }
+
+        postbuildcommands {
+            ("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+	    }
 
     filter "configurations:Debug"
         defines { "BI_DEBUG" }  
@@ -73,6 +78,15 @@ project "Sandbox"
     links {
         "Bismuth"
     }
+
+    filter "system:windows"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
+
+		defines {
+			"BI_PLATFORM_WINDOWS"
+		}
 
     filter "configurations:Debug"
         defines { "BI_DEBUG" }  

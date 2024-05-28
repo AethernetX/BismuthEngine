@@ -2,10 +2,12 @@
 
 #include <memory>
 
+#include "Core.h"
+
 #include "spdlog/spdlog.h"
 
 namespace bi {
-    class Log
+    class BISMUTH_API Log
     {
     private:
     
