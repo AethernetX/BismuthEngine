@@ -27,8 +27,17 @@ project "Bismuth"
         "thirdparty/spdlog/include"    
     }
 
+    defines {
+		"BI_PLATFORM_WINDOWS",
+		"BI_BUILD_DLL"
+	}
+
+    prebuildcommands {
+        ("{MKDIR} ../bin/" .. outputdir .. "/Sandbox")
+	}
+
     postbuildcommands {
-        ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+        ("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 	}
 
     filter "configurations:Debug"
