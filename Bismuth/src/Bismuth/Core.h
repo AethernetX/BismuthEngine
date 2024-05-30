@@ -9,3 +9,5 @@
 #else
 	#error Bismuth only supports Windows currently!
 #endif
+
+#define BIT(x) (1 << x)

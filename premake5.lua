@@ -24,7 +24,8 @@ project "Bismuth"
 
     -- Includes will go here
     includedirs {
-        "thirdparty/spdlog/include"    
+        "thirdparty/spdlog/include",
+        "%{prj.name}/src"    
     }
 
     filter "system:windows"
@@ -72,7 +73,7 @@ project "Sandbox"
     -- Includes will go here
     includedirs {
         "thirdparty/spdlog/include",
-        "Bismuth",    
+        "Bismuth/src",    
     }
 
     links {
