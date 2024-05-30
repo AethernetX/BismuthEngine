@@ -2,7 +2,7 @@
 
 #include "Events.h"
 
-#include <sstream>
+#include "bich.h"
 
 namespace bi {
 

@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Bismuth/Core.h"
+#include "bich.h"
 
-#include <string>
-#include <functional>
+#include "Bismuth/Core.h"
 
 namespace bi {
 

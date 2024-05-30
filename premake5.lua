@@ -65,6 +65,9 @@ project "Sandbox"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "bich.h"
+    pchsource "Bismuth/src/bich.cpp"
+
     files { 
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp" 
