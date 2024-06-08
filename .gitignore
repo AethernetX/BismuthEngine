@@ -15,3 +15,4 @@ features.md
 build.bat
 
 .vscode
+.vscode/*

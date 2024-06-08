@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Events.h"
-
 #include "bich.h"
+
+#include "Events.h"
 
 namespace bi {
 

@@ -1,105 +1,118 @@
-workspace "Bismuth"  
-    architecture "x64"
+workspace("Bismuth")
+architecture("x64")
 
-    configurations { 
-        "Debug", 
-        "Release",
-        "Dist",
-    }
+configurations({
+	"Debug",
+	"Release",
+	"Dist",
+})
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-project "Bismuth"  
-    location "Bismuth"    
-    kind "SharedLib"   
-    language "C++"
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "thirdparty/GLFW/include"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+include("thirdpartyPremake/GLFW")
 
-    files {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp",
-    } 
+project("Bismuth")
+location("Bismuth")
+kind("SharedLib")
+language("C++")
 
-    -- Includes will go here
-    includedirs {
-        "thirdparty/spdlog/include",
-        "%{prj.name}/src"    
-    }
+targetdir("bin/" .. outputdir .. "/%{prj.name}")
+objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    filter "system:windows"
-	       cppdialect "C++17"
-		    staticruntime "On"
-		    systemversion "latest"
+pchheader("bich.h")
+pchsource("Bismuth/src/bich.cpp")
 
-        defines {
-		    "BI_PLATFORM_WINDOWS",
-		    "BI_BUILD_DLL"
-	    }
+files({
+	"%{prj.name}/**.h",
+	"%{prj.name}/**.cpp",
+})
 
-        prebuildcommands {
-            ("{MKDIR} ../bin/" .. outputdir .. "/Sandbox")
-	    }
+-- Includes will go here
+includedirs({
+	"%{prj.name}/src",
+	"thirdparty/spdlog/include",
+	"%{IncludeDir.GLFW}",
+})
 
-        postbuildcommands {
-            ("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-	    }
+-- to do: Make sure to see if a user is using Mingw or not
 
-    filter "configurations:Debug"
-        defines { "BI_DEBUG" }  
-        symbols "On" 
+links({
+	"GLFW",
+	"gdi32"
+})
 
-    filter "configurations:Release"  
-        defines { "NDEBUG", "BI_RELEASE" }    
-        optimize "On"
-    filter "configurations:Dist"  
-        defines { "NDEBUG", "BI_DIST" }    
-        optimize "On"
+filter("system:windows")
+cppdialect("C++17")
+staticruntime("On")
+systemversion("latest")
 
-project "Sandbox"  
-    location "Sandbox"    
-    kind "ConsoleApp"   
-    language "C++"
+defines({
+	"BI_PLATFORM_WINDOWS",
+	"BI_BUILD_DLL",
+})
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+prebuildcommands({
+	("{MKDIR} ../bin/" .. outputdir .. "/Sandbox"),
+})
 
-    pchheader "bich.h"
-    pchsource "Bismuth/src/bich.cpp"
+postbuildcommands({
+	("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"),
+})
 
-    files { 
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp" 
-    } 
+filter("configurations:Debug")
+defines({ "BI_DEBUG" })
+symbols("On")
 
-    -- Includes will go here
-    includedirs {
-        "thirdparty/spdlog/include",
-        "Bismuth/src",    
-    }
+filter("configurations:Release")
+defines({ "NDEBUG", "BI_RELEASE" })
+optimize("On")
+filter("configurations:Dist")
+defines({ "NDEBUG", "BI_DIST" })
+optimize("On")
 
-    links {
-        "Bismuth"
-    }
+project("Sandbox")
+location("Sandbox")
+kind("ConsoleApp")
+language("C++")
 
-    filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
-		systemversion "latest"
+targetdir("bin/" .. outputdir .. "/%{prj.name}")
+objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
-		defines {
-			"BI_PLATFORM_WINDOWS"
-		}
+files({
+	"%{prj.name}/src/**.h",
+	"%{prj.name}/src/**.cpp",
+})
 
-    filter "configurations:Debug"
-        defines { "BI_DEBUG" }  
-        symbols "On" 
+-- Includes will go here
+includedirs({
+	"thirdparty/spdlog/include",
+	"Bismuth/src",
+})
 
-    filter "configurations:Release"  
-        defines { "NDEBUG", "BI_RELEASE" }    
-        optimize "On"
-    filter "configurations:Dist"  
-        defines { "NDEBUG", "BI_DIST" }    
-        optimize "On"
+links({
+	"Bismuth",
+})
 
+filter("system:windows")
+cppdialect("C++17")
+staticruntime("On")
+systemversion("latest")
+
+defines({
+	"BI_PLATFORM_WINDOWS",
+})
+
+filter("configurations:Debug")
+defines({ "BI_DEBUG" })
+symbols("On")
+
+filter("configurations:Release")
+defines({ "NDEBUG", "BI_RELEASE" })
+optimize("On")
+filter("configurations:Dist")
+defines({ "NDEBUG", "BI_DIST" })
+optimize("On")

@@ -1,12 +1,15 @@
+#include "bich.h"
 #include "Application.h"
 
-#include "Events/AppEvents.h"
-#include "Log.h"
+#include "Bismuth/Events/AppEvents.h"
+
+#include <GLFW/glfw3.h>
 
 namespace bi {
      
     Application::Application(/* args */)
     {
+        m_Window = std::unique_ptr<Window>(Window::create());
     }
     
     Application::~Application()
@@ -14,20 +17,9 @@ namespace bi {
     }
     
     void Application::run(){
-        WindowResizeEvent e(1280, 720);
-        /*
-        I'm pretty unsure why BI_TRACE(e) doesn't just work out the box
-        See https://github.com/gabime/spdlog/issues/1227 for more info
-        */
-		if (e.isInCategory(EventCategoryApplication))
-		{
-			BI_TRACE(e.toString());
-		}
-		if (e.isInCategory(EventCategoryInput))
-		{
-			BI_TRACE(e.toString());
-		}
-
-        while(true);
+        while(m_Running){
+            //todo: use vulkan's version of setting a background colour
+            m_Window->Update();
+        }
     }
 }
