@@ -7,7 +7,12 @@ Makefile
 Bismuth/Makefile
 Sandbox/Makefile
 
-# VS stuff will go here
+# Visual Studio stuff will go here
+Bismuth.sln
+.vs
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 features.md
 
