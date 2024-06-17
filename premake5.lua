@@ -46,37 +46,53 @@ links({
 })
 
 filter("system:windows")
-cppdialect("C++17")
-staticruntime("On")
-systemversion("latest")
+	cppdialect("C++17")
+	staticruntime("On")
+	systemversion("latest")
 
-defines({
-	"BI_PLATFORM_WINDOWS",
-	"BI_BUILD_DLL",
-})
+	defines({
+		"BI_PLATFORM_WINDOWS",
+		"BI_BUILD_DLL",
+	})
 
-prebuildcommands({
-	("{MKDIR} ../bin/" .. outputdir .. "/Sandbox"),
-})
+	prebuildcommands({
+		("{MKDIR} ../bin/" .. outputdir .. "/Sandbox"),
+	})
 
-postbuildcommands({
-	("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"),
-})
+	postbuildcommands({
+		("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"),
+	})
 
-filter("configurations:Debug")
-defines({ "BI_DEBUG" })
-buildoptions "/MDd"
-symbols("On")
+	--VS2022 settings
+	filter{"configurations:Debug", "action:vs2022"}
+		defines({ "BI_DEBUG" })
+		buildoptions "/MDd"
+		symbols("On")
 
-filter("configurations:Release")
-defines({ "NDEBUG", "BI_RELEASE" })
-buildoptions "/MD"
-optimize("On")
+	filter{"configurations:Release", "action:vs2022"}
+		defines({ "NDEBUG", "BI_RELEASE" })
+		buildoptions "/MD"
+		optimize("On")
 
-filter("configurations:Dist")
-defines({ "NDEBUG", "BI_DIST" })
-buildoptions "/MD"
-optimize("On")
+	filter{"configurations:Dist", "action:vs2022"}
+		defines({ "NDEBUG", "BI_DIST" })
+		buildoptions "/MD"
+		optimize("On")
+
+	
+	--Gmake settings
+	filter{"configurations:Debug", "action:gmake2"}
+		defines({ "BI_DEBUG" })
+		symbols("On")
+
+	filter{"configurations:Release", "action:gmake2"}
+		defines({ "NDEBUG", "BI_RELEASE" })
+		optimize("On")
+
+	filter{"configurations:Dist", "action:gmake2"}
+		defines({ "NDEBUG", "BI_DIST" })
+		optimize("On")
+
 
 project("Sandbox")
 location("Sandbox")
@@ -102,25 +118,39 @@ links({
 })
 
 filter("system:windows")
-cppdialect("C++17")
-staticruntime("On")
-systemversion("latest")
+	cppdialect("C++17")
+	staticruntime("On")
+	systemversion("latest")
 
-defines({
-	"BI_PLATFORM_WINDOWS",
-})
+	defines({
+		"BI_PLATFORM_WINDOWS",
+	})
 
-filter("configurations:Debug")
-defines({ "BI_DEBUG" })
-buildoptions "/MDd"
-symbols("On")
+	--VS2022 settings
+	filter{"configurations:Debug", "action:vs2022"}
+		defines({ "BI_DEBUG" })
+		buildoptions "/MDd"
+		symbols("On")
 
-filter("configurations:Release")
-defines({ "NDEBUG", "BI_RELEASE" })
-buildoptions "/MD"
-optimize("On")
+	filter{"configurations:Release", "action:vs2022"}
+		defines({ "NDEBUG", "BI_RELEASE" })
+		buildoptions "/MD"
+		optimize("On")
 
-filter("configurations:Dist")
-defines({ "NDEBUG", "BI_DIST" })
-buildoptions "/MD"
-optimize("On")
+	filter{"configurations:Dist", "action:vs2022"}
+		defines({ "NDEBUG", "BI_DIST" })
+		buildoptions "/MD"
+		optimize("On")
+
+	--Gmake settings
+	filter{"configurations:Debug", "action:gmake2"}
+		defines({ "BI_DEBUG" })
+		symbols("On")
+
+	filter{"configurations:Release", "action:gmake2"}
+		defines({ "NDEBUG", "BI_RELEASE" })
+		optimize("On")
+
+	filter{"configurations:Dist", "action:gmake2"}
+		defines({ "NDEBUG", "BI_DIST" })
+		optimize("On")
