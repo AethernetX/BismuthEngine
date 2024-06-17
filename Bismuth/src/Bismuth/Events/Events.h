@@ -38,8 +38,10 @@ namespace bi {
     #define EVENT_CLASS_CATEGORY(category) virtual int getCategoryFlags() const override { return category; }
 
     class BISMUTH_API Event {
-            friend class EventDispatcher;
         public:
+
+            bool handled{ false };
+
             virtual EventType getEventType() const = 0;
             virtual const char* getName() const = 0;
             virtual int getCategoryFlags() const = 0;
@@ -48,9 +50,6 @@ namespace bi {
             inline bool isInCategory(EventCatagory category){
                 return getCategoryFlags() & category;
             }
-
-        protected:
-            bool m_Handled = false;
     };
 
     //if it doesn't work, see if removing the bismuth api macro here works
@@ -64,7 +63,7 @@ namespace bi {
             template<typename T>
             bool dispatch(EventFn<T> func){
                 if(m_Event.getEventType() == T::getStaticType()){
-                    m_Event.m_Handled = func(*(T*)&m_Event);
+                    m_Event.handled = func(*(T*)&m_Event);
                     return true;
                 }
                 return false;

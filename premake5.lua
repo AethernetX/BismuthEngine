@@ -65,13 +65,17 @@ postbuildcommands({
 
 filter("configurations:Debug")
 defines({ "BI_DEBUG" })
+buildoptions "/MDd"
 symbols("On")
 
 filter("configurations:Release")
 defines({ "NDEBUG", "BI_RELEASE" })
+buildoptions "/MD"
 optimize("On")
+
 filter("configurations:Dist")
 defines({ "NDEBUG", "BI_DIST" })
+buildoptions "/MD"
 optimize("On")
 
 project("Sandbox")
@@ -108,11 +112,15 @@ defines({
 
 filter("configurations:Debug")
 defines({ "BI_DEBUG" })
+buildoptions "/MDd"
 symbols("On")
 
 filter("configurations:Release")
 defines({ "NDEBUG", "BI_RELEASE" })
+buildoptions "/MD"
 optimize("On")
+
 filter("configurations:Dist")
 defines({ "NDEBUG", "BI_DIST" })
+buildoptions "/MD"
 optimize("On")

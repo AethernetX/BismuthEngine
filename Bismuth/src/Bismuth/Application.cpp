@@ -23,7 +23,24 @@ namespace bi {
         dispatcher.dispatch<WindowsCloseEvent>(BIND_EVENT_FN(&Application::onWindowCloseEvent));
 
         //WARN spdlog ostr doesn't work for some reason
-        BI_CORE_INFO("{0}", e.toString());
+        BI_CORE_TRACE("{0}", e.toString());
+
+        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+        {
+            (*--it)->onEvent(e);
+            if (e.handled)
+                break;
+        }
+    }
+
+    void Application::pushLayer(Layer* layer)
+    {
+        m_LayerStack.pushLayer(layer);
+    }
+
+    void Application::pushOverlay(Layer* layer)
+    {
+        m_LayerStack.pushOverlay(layer);
     }
     
     bool Application::onWindowCloseEvent(WindowsCloseEvent& event) {
