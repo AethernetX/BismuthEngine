@@ -6,6 +6,8 @@ Bismuth is a game engine designed solely on being primarily used for making my g
 ## Getting started
 **YOU WILL NEED PREMAKE IN ORDER TO BUILD THE SANDBOX AND ENGINE, CMAKELISTS WILL BE MADE SOON**
 
+You will also need the vulkan SDK installed.
+
 Note: Unfortunately it is unknown whether the engine can run on Linux and MacOS. Testing and modification of the codebase will be required.
 
 ### Mingw Makefiles
