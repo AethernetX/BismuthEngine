@@ -3,6 +3,7 @@
 #include "Bismuth/Window.h"
 
 #include <GLFW/glfw3.h>
+#include <vulkan/vulkan.h>
 
 namespace bi {
 
@@ -37,6 +38,9 @@ namespace bi {
 		};
 
 		WindowData m_Data;
+		
+		VkInstance instance;
+
 	};
 
 }

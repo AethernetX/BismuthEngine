@@ -1,7 +1,7 @@
 #include "bich.h"
 #include "Application.h"
 
-#include <GLFW/glfw3.h>
+//#include <vulkan/vulkan.h>
 
 namespace bi {
      

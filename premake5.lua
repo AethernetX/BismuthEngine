@@ -9,9 +9,13 @@ configurations({
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Any external directories required (e.g vulkan sdk filepath) is extracted from the config file
+dofile("config.lua")
+
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "thirdparty/GLFW/include"
+IncludeDir["VULKAN_SDK"] = config.VULKAN_SDK .. "/Include"
 
 include("thirdpartyPremake/GLFW")
 
@@ -36,13 +40,21 @@ includedirs({
 	"%{prj.name}/src",
 	"thirdparty/spdlog/include",
 	"%{IncludeDir.GLFW}",
+	"%{IncludeDir.VULKAN_SDK}",
+})
+
+-- libraries required will go here
+
+libdirs({
+	config.VULKAN_SDK .. "/Lib"
 })
 
 -- to do: Make sure to see if a user is using Mingw or not
 
 links({
 	"GLFW",
-	"gdi32"
+	"gdi32",
+	"vulkan-1"
 })
 
 filter("system:windows")
@@ -53,6 +65,7 @@ filter("system:windows")
 	defines({
 		"BI_PLATFORM_WINDOWS",
 		"BI_BUILD_DLL",
+		"GLFW_INCLUDE_VULKAN"
 	})
 
 	prebuildcommands({

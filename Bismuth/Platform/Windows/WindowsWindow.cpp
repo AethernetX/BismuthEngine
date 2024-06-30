@@ -52,6 +52,41 @@ namespace bi {
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		/*
+			Here we would load the glad loader, which would return a value to status which we assert to make sure it was successful
+			Vulkan does come with a loader, which comes provided with the sdk.
+
+			Maybe in this case we need to be able to access the validation layers 
+			instead since it does alot of debug help for us idk?
+			
+			What I will do instead is perform the steps required to initialise vulkan
+		*/
+
+		VkApplicationInfo appInfo{};
+		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+		appInfo.pApplicationName = "Bismuth";
+		appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+		appInfo.pEngineName = "No Engine";
+		appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
+		appInfo.apiVersion = VK_API_VERSION_1_0;
+
+		VkInstanceCreateInfo createInfo{};
+		createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+		createInfo.pApplicationInfo = &appInfo;
+
+		uint32_t glfwExtensionCount{};
+		const char** glfwExtensions;
+
+		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+		createInfo.enabledExtensionCount = glfwExtensionCount;
+		createInfo.ppEnabledExtensionNames = glfwExtensions;
+		createInfo.enabledLayerCount = 0;
+
+		VkResult result = vkCreateInstance(&createInfo, nullptr, &instance);
+
+		BI_CORE_ASSERT(result != VK_SUCCESS, "Failed to initialise vkInstance!");
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		setVSync(true);
 

@@ -16,6 +16,9 @@ Bismuth.sln
 
 features.md
 
+# config file
+config.lua
+
 # for the time being have this hidden
 build.bat
 
