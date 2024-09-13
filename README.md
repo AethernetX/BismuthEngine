@@ -1,5 +1,9 @@
 # Bismuth engine
 
+## Announcement
+
+Development on Bismuth will be put on hold. I think my goal of making a game engine as an individual is too much for me and I would love to go back to it at some point when I think I am ready. The main issue was that I was struggling with vulkan and havng minimal experience in game engine dev forced me to learn little and only follow a tutorial step by step.
+
 ## What is Bismuth engine?
 Bismuth is a game engine designed solely on being primarily used for making my games, but soon will be repurposed to make creating games accessible for users with no programming experience.
 
