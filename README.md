@@ -45,4 +45,21 @@ When opening the solution, set the sandbox project as the starter projectand bui
 
 ## what kind of features will the Bismuth engine have?
 [TBD]
-- Support on Windows, Linux and MacOS
+- C# scripting and visual scripting
+- Support on Windows, Linux, MacOS and HTML.
+- Will use an ECS
+- Will attempt to make events easy to work with and performant
+- Use Jolt
+- Use the .NET runtime
+- Will attempt to make errors easy to debug.
+- Will have object pooling built in
+- Shortcuts (ideally inspired by blender)
+- Use Vulkan and later on WebGL and Metal
+- Game will run on the editor
+- Editor will aim to be lightweight as possible
+- open sourced
+- collision layers
+- No additional useless DLLs for exports
+- Hot reloading
+- Documentation
+- A website to install
